@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "G3gV14cO6yX3cX+XKFXn/CGiv2rho+aiS2PEhrAFgUw=",
+  "Source": "HospitalPriceAPI",
+  "BasePath": "_content/HospitalPriceAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
