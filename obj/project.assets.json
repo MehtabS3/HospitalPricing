@@ -465,11 +465,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/student/Desktop/HospitalPriceAPI/HospitalPriceAPI.csproj",
+      "projectUniqueName": "/Users/student/Desktop/HP/HospitalPriceAPI/HospitalPriceAPI.csproj",
       "projectName": "HospitalPriceAPI",
-      "projectPath": "/Users/student/Desktop/HospitalPriceAPI/HospitalPriceAPI.csproj",
+      "projectPath": "/Users/student/Desktop/HP/HospitalPriceAPI/HospitalPriceAPI.csproj",
       "packagesPath": "/Users/student/.nuget/packages/",
-      "outputPath": "/Users/student/Desktop/HospitalPriceAPI/obj/",
+      "outputPath": "/Users/student/Desktop/HP/HospitalPriceAPI/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/student/.nuget/NuGet/NuGet.Config"
