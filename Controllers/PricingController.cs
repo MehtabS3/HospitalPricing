@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Http;
-using Systme.Threading.Tasks;
+using System.Threading.Tasks;
 using System.Globalization;
 using CsvHelper;
 using CsvHelper.Configuration;
@@ -19,7 +19,7 @@ namespace HospitalPriceAPI.Controllers
             _httpClient = httpClient;
         }
         [HttpGet("get-prices")]
-        public async Task<IActionResults> GetPrices(string url)
+        public async Task<IActionResult> GetPrices(string url)
         {
             if (string.IsNullOrEmpty(url))
             {
@@ -34,12 +34,13 @@ namespace HospitalPriceAPI.Controllers
                     return BadRequest($"Failed to get data : {response.StatusCode}");
 
                 }
-                vas csvContent = await response.Content.ReadAsStringAsync();
-                return Ok("CSV data recieved. parsing will be implemented next.");
+                var csvContent = await response.Content.ReadAsStringAsync();
+                var treatmentData = ParseCsv(csvContent);
+                return Ok(treatmentData);
 
             }
             catch (Exception ex){
-                return StatusCode(500,$"Internal Server Error: {ex.Message}")
+                return StatusCode(500,$"Internal Server Error: {ex.Message}");
                 
             }
 
@@ -47,7 +48,7 @@ namespace HospitalPriceAPI.Controllers
         private List<TreatmentData> ParseCsv(string csvContent)
         {
             using var reader = new StringReader(csvContent);
-            using var csv = new CsvReader(reader, new CsvConfiguration(CulturInfo.InvariantCulture){Delimiter = ","});
+            using var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture){Delimiter = ","});
 
             var treatmentDataList = new List<TreatmentData>();
             bool headerFound = false;
@@ -76,18 +77,20 @@ namespace HospitalPriceAPI.Controllers
                     var maxPrice = csv.GetField<decimal?>("standard_charge|max") ?? 0;
 
                     treatmentDataList.Add( new TreatmentData{
-                        Treatment = treatment;
-                        MinPrice = minPrice;
-                        MaxPrice = maxPrice;
+                        Treatment = treatment,
+                        MinPrice = minPrice,
+                        MaxPrice = maxPrice,
 
                     });
 
                 }
                 catch(Exception ex) {
-                    console.WriteLine($"Parsing Error: {ex.Message}");
+                    Console.WriteLine($"Parsing Error: {ex.Message}");
 
                 }
             }
+            return treatmentDataList;
+
         }
     }
 }
